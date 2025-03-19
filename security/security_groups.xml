@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="group_partner_merge_manager" model="res.groups">
+            <field name="name">Partner Merge Manager</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>

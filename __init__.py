@@ -1,1 +1,1 @@
-import . from wizard
+from . import wizard
