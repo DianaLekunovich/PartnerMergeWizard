@@ -1,5 +1,6 @@
 <odoo>
     <data>
+        <!-- View for Partner Merge Wizard -->
         <record id="partner_merge_wizard_form" model="ir.ui.view">
             <field name="name">partner.merge.wizard.form</field>
             <field name="model">partner.merge.wizard</field>
@@ -10,10 +11,6 @@
                             <field name="partner_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             <field name="main_partner_id" options="{'no_create': True}"/>
                         </group>
-                        <group>
-                            <field name="email_choice"/>
-                            <field name="email_options" modifiers="{'invisible': [('email_choice', '!=', 'other')]}"/>
-                        </group>
                     </sheet>
                     <footer>
                         <button name="action_merge" string="Merge" type="object" class="btn-primary"/>
@@ -23,6 +20,7 @@
             </field>
         </record>
 
+        <!-- Action for opening Partner Merge Wizard -->
         <record id="partner_merge_wizard_action" model="ir.actions.act_window">
             <field name="name">Merge Selected Partners</field>
             <field name="res_model">partner.merge.wizard</field>
@@ -31,15 +29,39 @@
             <field name="binding_model_id" ref="base.model_res_partner"/>
             <field name="context">{'default_partner_ids': active_ids}</field>
         </record>
-        <record model="ir.ui.view" id="partner_email_selection">
-        <field name="name">View to Partner Email</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='email']" position="attributes">
-                <attribute name="widget">email</attribute>
-            </xpath>
-        </field>
+
+        <!-- View for Email Selection Wizard -->
+        <record id="partner_merge_email_wizard_form" model="ir.ui.view">
+            <field name="name">partner.merge.email.wizard.form</field>
+            <field name="model">partner.merge.email.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Email for Merged Partner">
+                    <sheet>
+                        <group>
+                            <field name="email_line_ids">
+                                <tree editable="top">
+                                    <field name="email"/>
+                                    <field name="selected"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm_email" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
         </record>
+
+        <!-- Action for opening Email Selection Wizard -->
+        <record id="partner_merge_email_wizard_action" model="ir.actions.act_window">
+            <field name="name">Choose Email</field>
+            <field name="res_model">partner.merge.email.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
     </data>
 </odoo>
+
