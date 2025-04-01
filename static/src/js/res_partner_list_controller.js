@@ -12,7 +12,6 @@ export class ContactsListController extends ListController {
     }
 
     async showMergeModal() {
-        console.log(this.model, this.model.root, this.model.root.getResIds(true));
         const ids2 = this.getSelectedResIds();
         const ids = await ids2;
 
@@ -27,7 +26,6 @@ export class ContactsListController extends ListController {
             return;
         }
 
-        console.log("Передаём в doAction:", { selectedIds: ids });
         this.actionService.doAction({
             type: "ir.actions.client",
             tag: "merge_contacts_modal",

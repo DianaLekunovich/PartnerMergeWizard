@@ -14,17 +14,7 @@ export class MergeContactsModal extends Component {
             mainPartnerId: null,
         });
         this.modalRef = useRef("mergeContactsModal");  // Create ref
-        onMounted(() => {
-          this.loadBootstrapModal();
-        });
-        console.log("Props в MergeContactsModal:", this.props);
-        console.log("Params в MergeContactsModal:", this.props.action.params);
-
         this.loadSelectedPartners();
-    }
-
-    loadBootstrapModal() {
-        //this.modal = new bootstrap.Modal(this.modalRef.el);
     }
 
     async loadSelectedPartners() {
@@ -44,10 +34,7 @@ export class MergeContactsModal extends Component {
         this.state.selectedPartners = partners;
         if (partners.length > 0) {
             const firstPartner = partners[0];
-            console.log("First Partner Name:", firstPartner.phone);
-            console.log("First Partner Email:", firstPartner.street);
         }
-        console.log(this.state.selectedPartners, selectedIds);
         this.state.mainPartnerId = partners[0]?.id;
          } catch (error) {
                 this.notification.add("Error loading partners.", {
@@ -90,30 +77,6 @@ export class MergeContactsModal extends Component {
                 type: "danger",
             });
         }
-        /*if (!this.state.mainPartnerId) {
-             this.notification.add( "Please select a main partner.", {  // Use notification service
-                title: "Error",
-                type: "danger",
-            });
-            return;
-        }
-
-        try {
-            await this.rpc("/partner/merge", {
-                partner_ids: this.props.action.params.selectedIds,
-                main_partner_id: this.state.mainPartnerId,
-            });
-
-            //await this.orm.call("res.partner", "merge_contacts", [this.props.action.params.selectedIds, this.state.mainPartnerId]);
-
-            // No dialogRef to close, so we reload the view instead
-            this.actionService.doAction({ type: "ir.actions.client", tag: "reload" });
-          } catch (error) {
-                this.notification.add("Error merging contacts.", {
-                    title: "Error",
-                    type: "danger",
-                });
-          }*/
     }
 
     async closeModal() {

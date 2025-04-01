@@ -32,16 +32,13 @@ class PartnerMergeWizard(models.TransientModel):
         partner_ids_to_merge = self.partner_ids.ids
         partner_ids_to_merge.remove(self.main_partner_id.id)
 
-        print(partner_ids_to_merge, self.main_partner_id.id);
         for partner_id in partner_ids_to_merge:
 
             sale_orders = self.env['sale.order'].search([('partner_id', '=', partner_id)])
             sale_orders.write({'partner_id': self.main_partner_id.id})
 
         unique_emails = list(set(self.partner_ids.mapped("email")))
-        print(unique_emails);
         if len(unique_emails) > 1:
-            print("in");
             return {
                 'name': _('Choose Email'),
                 'type': 'ir.actions.act_window',
@@ -78,7 +75,6 @@ class PartnerMergeEmailWizard(models.TransientModel):
 
         if merge_wizard.exists():
             emails = list(set(merge_wizard.partner_ids.mapped("email")))
-            print(emails)
             email_lines = [(0, 0, {'email': email}) for email in emails if email]
             res['email_line_ids'] = email_lines
         return res
