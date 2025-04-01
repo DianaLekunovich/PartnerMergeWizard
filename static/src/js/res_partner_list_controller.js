@@ -8,29 +8,29 @@ import { MergeContactsModal } from "./merge_contacts_modal";
 export class ContactsListController extends ListController {
     setup() {
         super.setup();
-        this.actionService = useService("action");
+        this.dialogService = useService("dialog");
+        this.notification = useService("notification");
+        useBus(this.env.bus, "reload_contacts", this.reloadContacts);
     }
 
     async showMergeModal() {
-        const ids2 = this.getSelectedResIds();
-        const ids = await ids2;
+        const ids = await this.getSelectedResIds();
 
-        console.log(ids.length, ids2);
         if (ids.length < 2) {
-            this.displayNotification({
+            this.notification.add("Please select at least two partners to merge.", { // Используем сервис notification
                 title: "Error",
-                message: "Please select at least two partners to merge.1",
                 type: "danger",
                 sticky: false,
             });
             return;
         }
 
-        this.actionService.doAction({
-            type: "ir.actions.client",
-            tag: "merge_contacts_modal",
-            params: { selectedIds: [...ids] },
-        });
+        this.dialogService.add(MergeContactsModal, {selectedIds: ids, });
+
+    }
+
+    reloadContacts() {
+        this.model.load();
     }
 
 }

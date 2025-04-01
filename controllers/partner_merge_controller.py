@@ -13,7 +13,10 @@ class PartnerMergeController(http.Controller):
                 'partner_ids': [(6, 0, partner_ids)],
                 'main_partner_id': main_partner_id
             })
-            wizard.action_merge()
-            return {'success': True, 'message': 'Partners merged successfully.'}
+            result = wizard.action_merge()
+            if result.get('type') == "ir.actions.act_window":
+                return wizard.action_merge()
+            else:
+                return {'success': True, 'message': 'Partners merged successfully.'}
         except Exception as e:
             return {'success': False, 'message': str(e)}
