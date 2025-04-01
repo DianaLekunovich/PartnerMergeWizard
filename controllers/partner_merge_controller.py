@@ -15,7 +15,7 @@ class PartnerMergeController(http.Controller):
             })
             result = wizard.action_merge()
             if result.get('type') == "ir.actions.act_window":
-                return wizard.action_merge()
+                return result
             else:
                 return {'success': True, 'message': 'Partners merged successfully.'}
         except Exception as e:
