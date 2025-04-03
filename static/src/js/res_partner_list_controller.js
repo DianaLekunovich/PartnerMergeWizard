@@ -3,6 +3,7 @@ import { ListController } from "@web/views/list/list_controller";
 import { registry } from '@web/core/registry';
 import { listView } from '@web/views/list/list_view';
 import { useBus, useService } from "@web/core/utils/hooks";
+import { useState, onRendered } from "@odoo/owl";
 import { MergeContactsModal } from "./merge_contacts_modal";
 
 export class ContactsListController extends ListController {
@@ -10,7 +11,17 @@ export class ContactsListController extends ListController {
         super.setup();
         this.dialogService = useService("dialog");
         this.notification = useService("notification");
+        this.state = useState({ showMergeButton: false });
+
         useBus(this.env.bus, "reload_contacts", this.reloadContacts);
+        onRendered(() => {
+            this.updateMergeButton(); // Check selection after each render
+        });
+    }
+
+    async updateMergeButton() {
+        const selectedIds = await this.getSelectedResIds();
+        this.state.showMergeButton = selectedIds.length >= 2;
     }
 
     async showMergeModal() {

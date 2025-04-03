@@ -2,7 +2,7 @@
 <templates>
    <t t-name="button_contacts.ListView.Buttons" t-inherit="web.ListView.Buttons">
        <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
-           <button type="button" class="btn btn-primary" style="margin-left: 0px;"  t-on-click="showMergeModal">
+           <button type="button" class="btn btn-primary" style="margin-left: 0px;"  t-on-click="showMergeModal" t-att-class="{'d-none': !state.showMergeButton}">
                Merge
            </button>
        </xpath>
