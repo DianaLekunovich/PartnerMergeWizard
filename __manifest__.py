@@ -14,6 +14,7 @@
         'security/ir.model.access.csv',
         'views/partner_merge_wizard_views.xml',
         'views/res_partner_list_button.xml',
+        'views/partner_similar_wizard_views.xml',
     ],
     'assets': {
         'web.assets_backend': [

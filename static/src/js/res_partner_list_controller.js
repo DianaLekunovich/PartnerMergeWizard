@@ -12,11 +12,18 @@ export class ContactsListController extends ListController {
         this.dialogService = useService("dialog");
         this.notification = useService("notification");
         this.state = useState({ showMergeButton: false });
+        this.state = useState({ showFindSimilarButton: false });
 
         useBus(this.env.bus, "reload_contacts", this.reloadContacts);
         onRendered(() => {
             this.updateMergeButton(); // Check selection after each render
+            this.updateFindSimilarButton();
         });
+    }
+
+    async updateFindSimilarButton() {
+        const selectedIds = await this.getSelectedResIds();
+        this.state.showFindSimilarButton = selectedIds.length == 1;
     }
 
     async updateMergeButton() {
@@ -38,6 +45,37 @@ export class ContactsListController extends ListController {
 
         this.dialogService.add(MergeContactsModal, {selectedIds: ids, });
 
+    }
+
+    async findSimilarContacts() {
+        const selectedIds = await this.getSelectedResIds();
+        if (selectedIds.length !== 1) {
+            this.notification.add("Please select only one contact to find similar.", {
+                title: "Error",
+                type: "danger",
+                sticky: false,
+            });
+            return;
+        }
+
+        try {
+            const similarContacts = await this.rpc("/partner/find_similar", { partner_id: selectedIds[0] });
+            this.actionService.doAction({
+                name: "Similar Contacts",
+                type: "ir.actions.act_window",
+                res_model: "partner.similar.wizard",
+                view_mode: "form",
+                views: [[false, "form"]],
+                target: "new",
+                context: { default_partner_ids: similarContacts },
+            });
+        } catch (error) {
+            this.notification.add("Error finding similar contacts.", {
+                title: "Error",
+                type: "danger",
+                sticky: false,
+            });
+        }
     }
 
     reloadContacts() {

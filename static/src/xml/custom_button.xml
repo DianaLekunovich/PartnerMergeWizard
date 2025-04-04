@@ -5,6 +5,9 @@
            <button type="button" class="btn btn-primary" style="margin-left: 0px;"  t-on-click="showMergeModal" t-att-class="{'d-none': !state.showMergeButton}">
                Merge
            </button>
+           <button type="button" class="btn btn-primary" style="margin-left: 0px;" t-on-click="findSimilarContacts" t-att-class="{'d-none': !state.showFindSimilarButton}">
+                Find Similar
+            </button>
        </xpath>
    </t>
 </templates>
