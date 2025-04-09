@@ -6,22 +6,33 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="partner_ids" widget="one2many" options="{'no_create': True, 'no_edit': True, 'no_open': True}">
+                        <field
+              name="partner_ids"
+              widget="one2many"
+              options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+            >
                             <tree>
-                                <field name="name"/>
-                                <field name="email"/>
-                                <field name="phone"/>
+                                <field name="name" />
+                                <field name="email" />
+                                <field name="phone" />
                             </tree>
                         </field>
                     </group>
                     <footer>
-                        <button string="Close" class="btn-primary" special="cancel" />
+                        <button
+              string="Close"
+              class="btn-primary"
+              special="cancel"
+            />
                     </footer>
                 </form>
             </field>
         </record>
 
-        <record id="partner_similar_wizard_action" model="ir.actions.act_window">
+        <record
+      id="partner_similar_wizard_action"
+      model="ir.actions.act_window"
+    >
             <field name="name">Similar Partners</field>
             <field name="res_model">partner.similar.wizard</field>
             <field name="view_mode">form</field>

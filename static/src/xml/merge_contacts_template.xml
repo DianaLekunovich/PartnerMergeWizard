@@ -1,12 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="PartnerMergeWizard.MergeContactsModal">
-        <div class="modal fade show" tabindex="-1" style="display: block;" t-ref="mergeContactsModal">
+        <div
+      class="modal fade show"
+      tabindex="-1"
+      style="display: block;"
+      t-ref="mergeContactsModal"
+    >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Merge Contacts</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" t-on-click="closeModal.bind(this)"/>
+                        <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              t-on-click="closeModal.bind(this)"
+            />
                     </div>
                     <div class="modal-body">
                         <table class="table table-striped">
@@ -20,24 +31,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="state.selectedPartners" t-as="contact" t-key="contact.id">
+                                <t
+                  t-foreach="state.selectedPartners"
+                  t-as="contact"
+                  t-key="contact.id"
+                >
                                     <tr>
                                         <td>
-                                            <input type="radio" name="main_partner" t-att-value="contact.id"
-                                                   t-att-checked="contact.id == state.mainPartnerId"/>
+                                            <input
+                        type="radio"
+                        name="main_partner"
+                        t-att-value="contact.id"
+                        t-att-checked="contact.id == state.mainPartnerId"
+                      />
                                         </td>
-                                        <td><t t-out="contact.name"/></td>
-                                        <td><t t-out="contact.email or '-'"/></td>
-                                        <td><t t-out="contact.phone or '-'"/></td>
-                                        <td><t t-out="contact.street or '-'"/></td>
+                                        <td><t t-out="contact.name" /></td>
+                                        <td><t
+                        t-out="contact.email or '-'"
+                      /></td>
+                                        <td><t
+                        t-out="contact.phone or '-'"
+                      /></td>
+                                        <td><t
+                        t-out="contact.street or '-'"
+                      /></td>
                                     </tr>
                                 </t>
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" t-on-click="mergeContacts">Merge</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" t-on-click="closeModal.bind(this)">Cancel</button>
+                        <button
+              class="btn btn-primary"
+              t-on-click="mergeContacts"
+            >Merge</button>
+                        <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              t-on-click="closeModal.bind(this)"
+            >Cancel</button>
                     </div>
                 </div>
             </div>
